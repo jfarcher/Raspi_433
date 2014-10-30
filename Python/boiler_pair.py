@@ -41,7 +41,7 @@ def sequence(incoming_string):
     # Make sure we are all off to start with
     GPIO.output(18,False)
 #    time.sleep(0.5)
-    while count < 8:
+    while count < 1:
         # Split the 1's and 0 into component parts and then run associated 
         #function
         for b in list(incoming_string):
@@ -53,10 +53,9 @@ def sequence(incoming_string):
             else:
                 print ("Something gone wrong")
         count += 1
-	time.sleep(0.9)
         GPIO.output(18,False)
     # Sleep 2 seconds between sequences
-    time.sleep(1) 
+    time.sleep(0.9) 
 
 def main(): 
      # Boiler Pairing
