@@ -2,17 +2,17 @@
 import time
 # Written tng@chegwin.org 3-Jul-2014
 # Python runs slower than C, so 18.9 factor below becomes 16.9 (microseconds)
-sample_length=15.6/1000000.0
+sample_length=0.8
 # Setup Pin 18 as output (Pin 12 in Pi numbering)
 import RPi.GPIO as GPIO
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(18, GPIO.OUT)
 
 #Calculate our on/offs up front
-fourseventy=470/1000000.0
-fivesixty=560/1000000.0
-tenseventy=1070/1000000.0
-nineseventy=970/1000000.0
+fourseventy=sample_length*400/1000000.0
+fivesixty=sample_length*500/1000000.0
+tenseventy=sample_length*1150/1000000.0
+nineseventy=sample_length*1000/1000000.0
 
 #thirty=30*sample_length #27
 #thirtyonepointfive=31.5*sample_length
@@ -40,7 +40,7 @@ def sequence(incoming_string):
     count =0
     # Make sure we are all off to start with
     GPIO.output(18,False)
-    time.sleep(450*sample_length)
+#    time.sleep(0.5)
     while count < 8:
         # Split the 1's and 0 into component parts and then run associated 
         #function
@@ -53,20 +53,23 @@ def sequence(incoming_string):
             else:
                 print ("Something gone wrong")
         count += 1
-        # Sleep 150 samples between repetitions
-        time.sleep(150*sample_length)
+	time.sleep(0.9)
         GPIO.output(18,False)
     # Sleep 2 seconds between sequences
     time.sleep(1) 
 
 def main(): 
      # Boiler Pairing
-     sequence('11111212111111121112111121211')
-     sequence('11111212111111121112111121211')
-     sequence('11111212111111121112111121211')
-     sequence('11111212111111121112111121211')
-     sequence('11111212111111121112111121211')
      # 1,2,3,4 on
+
+     sequence('111112121111111211211112111111')
+     sequence('111112121111111211211112111111')
+     sequence('111112121111111211211112111111')
+     sequence('111112121111111211111111211211')
+     sequence('111112121111111211111111211211')
+     sequence('111112121111111211111111211211')
+
+
 
 #     sequence('1011111100010000000011110')
 #     sequence('1011111100010000000001110')
